@@ -3,21 +3,25 @@
 //
 #include <iostream>
 #include <cstdlib>
+
 #include<sys/types.h>
-#include<sys/socket.h>
+#include<sys/socket.h>	/* basic socket definitions */
+#include<netinet/in.h>	/* sockaddr_in{} and other Internet defns */
 #include<arpa/inet.h>
-#include<netinet/in.h>
+
 #include<sys/time.h>
 #include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
 #include<errno.h>
 #include<string.h>
-#include<unistd.h>
-#include<stdlib.h>
-#include<time.h>
 
+#include<time.h>
+#include <winsock.h>
 
 
 #define PORT_NUMBER 8016
+#define PORT_NUMBER2 8017
 #define MAXLINE 200
 #define LISTENQ 5
 
@@ -34,7 +38,7 @@ int main(int argc, char **argv)
 {
     int	listenfd, connfd;
     socklen_t   len;
-    struct sockaddr_in  servaddr, cliaddr;
+    struct sockaddr_in  servaddr, cliaddr, servaddr2;
     char	buff[MAXLINE];
     time_t	ticks;
 
@@ -50,6 +54,11 @@ int main(int argc, char **argv)
     servaddr.sin_family      = AF_INET;  // Communicate using the Internet domain (AF_INET)
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);   // Who should we accept connections from?
     servaddr.sin_port        = htons(PORT_NUMBER);  // Which port should the server listen on?
+
+    bzero(&servaddr2, sizeof(servaddr2));
+    servaddr.sin_family      = AF_INET;  // Communicate using the Internet domain (AF_INET)
+    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);   // Who should we accept connections from?
+    servaddr.sin_port        = htons(PORT_NUMBER2);  // Which port should the server listen on?
 
     // Bind the server end-point using the specifications stored in "serveraddr"
     if( bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0 ) {
@@ -74,6 +83,13 @@ int main(int argc, char **argv)
                inet_ntop(AF_INET, &cliaddr.sin_addr, buff, sizeof(buff)),
                ntohs(cliaddr.sin_port));
 
+        int sock2fd = socket(AF_INET, SOCK_STREAM, 0);
+        if( bind(sock2fd, (struct sockaddr *) &servaddr2, sizeof(servaddr2)) < 0 ) {
+            fprintf( stderr, "Bind of sock2fd failed.  %s\n", strerror( errno ) );
+            exit( 1 );
+        }
+
+
         ticks = time(NULL);
         snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
         if( write(connfd, buff, strlen(buff)) < 0 ) {
@@ -81,6 +97,10 @@ int main(int argc, char **argv)
             exit( 1 );
         }
         // finished talking to this client.  Close the connection.
-        close(connfd);
+        std::string closer;
+        std::cin >> closer;
+        if (closer == "q") close(connfd);
     }
 }
+
+

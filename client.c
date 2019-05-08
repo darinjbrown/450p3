@@ -10,6 +10,9 @@
 #include<errno.h>
 #include<string.h>
 
+#include<curses.h>
+#include "getChar.hpp"
+
 #define PORT_NUMBER 8017
 #define MAXLINE 200
 // The client, as an argument, takes the IP of a server and attempts
@@ -30,7 +33,7 @@
 
 int main(int argc, char **argv)
 {
-        int sockfd, n;
+    int sockfd, n;
 	char recvline[MAXLINE + 1];
 	struct sockaddr_in	servaddr;
 
@@ -56,11 +59,20 @@ int main(int argc, char **argv)
 	    exit( 3 );
 	}
 
+
+	//****************************************************************
+	// create listening server for 'server' to connect to as client
+	//***************************************************************
+
 	// Attempt to connect to the server.
 	if (connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0) {
 	    fprintf( stderr, "connect error: %s\n", strerror( errno ) );
 	    exit( 4 );
 	}
+
+
+
+
 
 	// talk to the server. (Application-level protocol) 
 	while ( (n = read(sockfd, recvline, MAXLINE)) > 0) {

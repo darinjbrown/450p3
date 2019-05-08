@@ -42,10 +42,10 @@ RM = "C:\Program Files\JetBrains\CLion 2018.3.4\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = Z:\450\p3.1
+CMAKE_SOURCE_DIR = C:\Users\Darin\CLionProjects\450p3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = Z:\450\p3.1\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\Darin\CLionProjects\450p3\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/p3_1.dir/depend.make
@@ -58,42 +58,42 @@ include CMakeFiles/p3_1.dir/flags.make
 
 CMakeFiles/p3_1.dir/main.cpp.obj: CMakeFiles/p3_1.dir/flags.make
 CMakeFiles/p3_1.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=Z:\450\p3.1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/p3_1.dir/main.cpp.obj"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\p3_1.dir\main.cpp.obj -c Z:\450\p3.1\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Darin\CLionProjects\450p3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/p3_1.dir/main.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\p3_1.dir\main.cpp.obj -c C:\Users\Darin\CLionProjects\450p3\main.cpp
 
 CMakeFiles/p3_1.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/p3_1.dir/main.cpp.i"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E Z:\450\p3.1\main.cpp > CMakeFiles\p3_1.dir\main.cpp.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Darin\CLionProjects\450p3\main.cpp > CMakeFiles\p3_1.dir\main.cpp.i
 
 CMakeFiles/p3_1.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/p3_1.dir/main.cpp.s"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S Z:\450\p3.1\main.cpp -o CMakeFiles\p3_1.dir\main.cpp.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Darin\CLionProjects\450p3\main.cpp -o CMakeFiles\p3_1.dir\main.cpp.s
 
 CMakeFiles/p3_1.dir/client.cpp.obj: CMakeFiles/p3_1.dir/flags.make
 CMakeFiles/p3_1.dir/client.cpp.obj: ../client.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=Z:\450\p3.1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/p3_1.dir/client.cpp.obj"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\p3_1.dir\client.cpp.obj -c Z:\450\p3.1\client.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Darin\CLionProjects\450p3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/p3_1.dir/client.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\p3_1.dir\client.cpp.obj -c C:\Users\Darin\CLionProjects\450p3\client.cpp
 
 CMakeFiles/p3_1.dir/client.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/p3_1.dir/client.cpp.i"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E Z:\450\p3.1\client.cpp > CMakeFiles\p3_1.dir\client.cpp.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Darin\CLionProjects\450p3\client.cpp > CMakeFiles\p3_1.dir\client.cpp.i
 
 CMakeFiles/p3_1.dir/client.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/p3_1.dir/client.cpp.s"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S Z:\450\p3.1\client.cpp -o CMakeFiles\p3_1.dir\client.cpp.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Darin\CLionProjects\450p3\client.cpp -o CMakeFiles\p3_1.dir\client.cpp.s
 
 CMakeFiles/p3_1.dir/server.cpp.obj: CMakeFiles/p3_1.dir/flags.make
 CMakeFiles/p3_1.dir/server.cpp.obj: ../server.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=Z:\450\p3.1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/p3_1.dir/server.cpp.obj"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\p3_1.dir\server.cpp.obj -c Z:\450\p3.1\server.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Darin\CLionProjects\450p3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/p3_1.dir/server.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\p3_1.dir\server.cpp.obj -c C:\Users\Darin\CLionProjects\450p3\server.cpp
 
 CMakeFiles/p3_1.dir/server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/p3_1.dir/server.cpp.i"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E Z:\450\p3.1\server.cpp > CMakeFiles\p3_1.dir\server.cpp.i
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Darin\CLionProjects\450p3\server.cpp > CMakeFiles\p3_1.dir\server.cpp.i
 
 CMakeFiles/p3_1.dir/server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/p3_1.dir/server.cpp.s"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S Z:\450\p3.1\server.cpp -o CMakeFiles\p3_1.dir\server.cpp.s
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Darin\CLionProjects\450p3\server.cpp -o CMakeFiles\p3_1.dir\server.cpp.s
 
 # Object files for target p3_1
 p3_1_OBJECTS = \
@@ -111,7 +111,7 @@ p3_1.exe: CMakeFiles/p3_1.dir/build.make
 p3_1.exe: CMakeFiles/p3_1.dir/linklibs.rsp
 p3_1.exe: CMakeFiles/p3_1.dir/objects1.rsp
 p3_1.exe: CMakeFiles/p3_1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=Z:\450\p3.1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable p3_1.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Darin\CLionProjects\450p3\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable p3_1.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\p3_1.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -124,6 +124,6 @@ CMakeFiles/p3_1.dir/clean:
 .PHONY : CMakeFiles/p3_1.dir/clean
 
 CMakeFiles/p3_1.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" Z:\450\p3.1 Z:\450\p3.1 Z:\450\p3.1\cmake-build-debug Z:\450\p3.1\cmake-build-debug Z:\450\p3.1\cmake-build-debug\CMakeFiles\p3_1.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Darin\CLionProjects\450p3 C:\Users\Darin\CLionProjects\450p3 C:\Users\Darin\CLionProjects\450p3\cmake-build-debug C:\Users\Darin\CLionProjects\450p3\cmake-build-debug C:\Users\Darin\CLionProjects\450p3\cmake-build-debug\CMakeFiles\p3_1.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/p3_1.dir/depend
 
