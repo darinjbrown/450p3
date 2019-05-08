@@ -17,7 +17,6 @@
 #include<string.h>
 
 #include<time.h>
-#include <winsock.h>
 
 
 #define PORT_NUMBER 8016
@@ -34,12 +33,14 @@
 
 // A server must be launched before clients can talk to it!
 
+int	listenfd, connfd, sock2fd;
+socklen_t   len;
+struct sockaddr_in  servaddr, cliaddr, servaddr2;
+char	buff[MAXLINE];
+
 int main(int argc, char **argv)
 {
-    int	listenfd, connfd;
-    socklen_t   len;
-    struct sockaddr_in  servaddr, cliaddr, servaddr2;
-    char	buff[MAXLINE];
+
     time_t	ticks;
 
     // Create an end-point for IPv4 Internet Protocol
@@ -83,12 +84,20 @@ int main(int argc, char **argv)
                inet_ntop(AF_INET, &cliaddr.sin_addr, buff, sizeof(buff)),
                ntohs(cliaddr.sin_port));
 
-        int sock2fd = socket(AF_INET, SOCK_STREAM, 0);
-        if( bind(sock2fd, (struct sockaddr *) &servaddr2, sizeof(servaddr2)) < 0 ) {
-            fprintf( stderr, "Bind of sock2fd failed.  %s\n", strerror( errno ) );
-            exit( 1 );
+        //****************************************************************************
+        // ATTEMPT TO CONNECT (client.cpp as server, this program as client)
+
+
+        usleep(3000); // give client time to start listening before attempting connection
+        sock2fd = socket(AF_INET, SOCK_STREAM, 0);
+
+        if (connect(sock2fd, (struct sockaddr *) &servaddr2, sizeof(servaddr2)) < 0) {
+            fprintf(stderr, "sock2fd connect error: %s\n", strerror(errno));
+            exit(4);
         }
 
+
+        //*******************************************************************************
 
         ticks = time(NULL);
         snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));

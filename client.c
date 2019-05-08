@@ -35,7 +35,9 @@ int main(int argc, char **argv)
 {
     int sockfd, n;
 	char recvline[MAXLINE + 1];
-	struct sockaddr_in	servaddr;
+	struct sockaddr_in	servaddr, servaddr2;
+	int listenfd, connfd;
+	socklen_t len;
 
 	if (argc != 2) {
 	    fprintf( stderr, "Usage: %s <IPaddress>\n", argv[0] );
@@ -54,6 +56,12 @@ int main(int argc, char **argv)
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port   = htons(PORT_NUMBER);
+
+    bzero(&servaddr2, sizeof(servaddr2));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port   = htons(PORT_NUMBER2);
+
+
 	if (inet_pton(AF_INET, argv[1], &servaddr.sin_addr) <= 0) {
 	    fprintf( stderr, "inet_pton error for %s\n", argv[1] );
 	    exit( 3 );
@@ -62,6 +70,37 @@ int main(int argc, char **argv)
 
 	//****************************************************************
 	// create listening server for 'server' to connect to as client
+
+    // Create an end-point for IPv4 Internet Protocol
+    if( ( listenfd = socket(AF_INET, SOCK_STREAM, 0) ) < 0 ) {
+        fprintf( stderr, "2nd socket failed.  %s\n", strerror( errno ) );
+        exit( 1 );
+
+    }
+
+    // Bind the server end-point using the specifications stored in "serveraddr2"
+    if( bind(listenfd, (struct sockaddr *) &servaddr2, sizeof(servaddr2)) < 0 ) {
+        fprintf(stderr, "Bind of 2nd socket failed.  %s\n", strerror(errno));
+        exit(1);
+    }
+
+    // Listen on the in-comming connections; pile up at most LISTENQ number of connections.
+    if( listen(listenfd, LISTENQ) < 0 ) {
+        fprintf( stderr, "Listen failed.  %s\n", strerror( errno ) );
+        exit( 1 );
+    }
+
+    for ( ; ; ) {
+        len = sizeof(cliaddr);
+        // establish a connection with an incoming client.
+        if( ( connfd = accept(listenfd, (struct sockaddr *) &cliaddr, &len) ) < 0 ) {
+            fprintf( stderr, "Accept failed.  %s\n", strerror( errno ) );
+            exit( 1 );
+        }
+        printf("connection from %s, port %d\n",
+               inet_ntop(AF_INET, &cliaddr.sin_addr, buff, sizeof(buff)),
+               ntohs(cliaddr.sin_port));
+
 	//***************************************************************
 
 	// Attempt to connect to the server.
