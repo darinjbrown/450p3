@@ -1,3 +1,15 @@
+server.x: server.o getChar.o
+	g++ -std=c++17 -o server.x
+
+server.o: server.cpp getChar.o
+	g++ -c -ggdb server.cpp -o server.o
+
+client.x: client.o getChar.o
+	g++ -std=c++17 -o client.x
+
+client.o: client.cpp getChar.o
+	g++ -c -ggdb client.cpp -o client.o
+
 screen.x:  screen.o getChar.o
 	g++ -ggdb -o screen.x screen.o getChar.o -lcurses -ltermcap
 

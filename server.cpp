@@ -51,9 +51,9 @@ int main(int argc, char **argv)
     int incomingFD = initIn();
     int outgoingFD = initOut();
 
-    while(r != '~'){
+    while(r != '\04'){
 
-        ssize_t read(incomingFD, (char *)&r, 1);
+        recv(incomingFD, &r, sizeof(r), 0);
 
         std::cout << r << std::endl;
 
