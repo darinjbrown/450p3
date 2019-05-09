@@ -1,26 +1,45 @@
 #include<curses.h>
 #include "getChar.hpp"
+#include<stdlib.h>
+#include <ostream>
+#include <unistd.h>
+#include <iostream>
+
+#define LINE_WIDTH 80
+#define RECEIVE_START_Y 14
+#define DIVIDER_Y 13
+#define SEND_START_Y 12
 
 void startup( void );
 void terminate( void );
 
+char dividerChar = '_';
+int receiveX = 0;
+int sendX = 0;
+int y = SEND_START_Y;
+int receiveY = RECEIVE_START_Y;
+char send1[12][LINE_WIDTH];
+char receive1[12][LINE_WIDTH];
+
+
+//format is (Y,X) instead of (X,Y)
+
 int main(void)
 {
      int c;
-
+    for(int i = 0; i < 12; i++){
+        for(int j = 0; j < LINE_WIDTH; j++){
+            send1[i][j] = '~';
+        }
+    }
      startup();
-     move(0, 0);  // move the curser to the top- and left-most block.
-     addstr("0123456789012345678901234567890123456789");
-     addstr("0123456789012345678901234567890123456789");
-     move(1, 0);  // move the curser to the second row, first column.
-     addch('*');  // put a character at (1, 0)
-     move(1, 20);
-     addstr( "This string starts on column 21.");
-     mvaddch(1, 79, '*'); // same as: move(1, 79); addch('*');
-     mvaddch(22, 0, '*');
-     move(12, 30);
-     addstr( "--------------------------------------------------------------");
-     mvaddch(22, 79, '*');
+     move(DIVIDER_Y, 0);  // move the curser to sender's start
+     for (int i = 0; i < LINE_WIDTH; i++){
+         addch(dividerChar);
+         refresh();
+     }
+     move(0, SEND_START_Y);
+
      refresh();  // this function call forces the screen to be updated. 
      // the following function moves the curser to (4, 5) and then
      // writes a string.  It is equivalent to the following two stmts:
@@ -29,10 +48,33 @@ int main(void)
      mvaddstr(4, 5, "Type in a couple of non-blank characters ");
      addstr("and then wait and watch!"); 
      refresh();
-     for(int i = 13; i < 25; i++) {
-	  mvaddch( i, i, get_char() );
-	  refresh();
-     }	  
+     move(SEND_START_Y, sendX);
+     for(int i = 0; i < 100; i++){
+         c = getchar();
+         if (c == '\n'){
+             for (int i = 0; i < SEND_START_Y; i++){
+                 for(int j = 0; j < LINE_WIDTH; j++){
+                     if (send1[j][i] != '~'){
+                         send1[j-1][i] = send1[j][i];
+                         mvaddch(j-1, i, send1[j-1][i]);
+                         refresh();
+                     }
+                 }
+             }
+             sendX = 0;
+
+         }else {
+             mvaddch(y, sendX, c);
+             send1[y][sendX] = c;
+             sendX++;
+
+         }
+
+         refresh();
+         if(sendX > LINE_WIDTH) sendX = 0;
+     }
+
+     sleep(1);
      terminate();
 }
 
@@ -53,3 +95,5 @@ void terminate( void )
      refresh();
      endwin();
 }
+
+
