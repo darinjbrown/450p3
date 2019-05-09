@@ -41,6 +41,7 @@ int main(void)
          refresh();
      }
 
+
      refresh();
      move(SEND_START_Y, sendX);
 
@@ -79,6 +80,7 @@ int main(void)
 
      sleep(1);
      terminate();
+
 }
 
 void startup( void )
