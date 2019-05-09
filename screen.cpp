@@ -14,45 +14,42 @@ void startup( void );
 void terminate( void );
 
 char dividerChar = '_';
+char d;
 int receiveX = 0;
 int sendX = 0;
 int y = SEND_START_Y;
 int receiveY = RECEIVE_START_Y;
 char send1[12][LINE_WIDTH];
 char receive1[12][LINE_WIDTH];
+std::string new1 = "newline (backslash n) read";
 
 
 //format is (Y,X) instead of (X,Y)
 
 int main(void)
 {
-     int c;
+    char c;
     for(int i = 0; i < 12; i++){
         for(int j = 0; j < LINE_WIDTH; j++){
             send1[i][j] = '~';
         }
     }
      startup();
-     move(DIVIDER_Y, 0);  // move the curser to sender's start
+     move(DIVIDER_Y, 0);  // move the cursor to sender's start
      for (int i = 0; i < LINE_WIDTH; i++){
          addch(dividerChar);
          refresh();
      }
-     move(0, SEND_START_Y);
 
-     refresh();  // this function call forces the screen to be updated. 
-     // the following function moves the curser to (4, 5) and then
-     // writes a string.  It is equivalent to the following two stmts:
-     // move(4, 5);
-     // addstr("Type in a non-blank character, after it is echoed ");
-     mvaddstr(4, 5, "Type in a couple of non-blank characters ");
-     addstr("and then wait and watch!"); 
      refresh();
      move(SEND_START_Y, sendX);
+
+
      for(int i = 0; i < 100; i++){
          c = getchar();
          if (c == '\n'){
-             for (int i = 0; i < SEND_START_Y; i++){
+             addch('!');
+             for (int i = 1; i < SEND_START_Y; i++){
                  for(int j = 0; j < LINE_WIDTH; j++){
                      if (send1[j][i] != '~'){
                          send1[j-1][i] = send1[j][i];
@@ -63,15 +60,21 @@ int main(void)
              }
              sendX = 0;
 
+
          }else {
-             mvaddch(y, sendX, c);
-             send1[y][sendX] = c;
+             d = c;
+             mvaddch(y, sendX, d);
+             send1[y][sendX] = d;
              sendX++;
+             move(y, sendX);
 
          }
 
          refresh();
-         if(sendX > LINE_WIDTH) sendX = 0;
+         if(sendX >= LINE_WIDTH) {
+             sendX = 0;
+             move(y, sendX);
+         }
      }
 
      sleep(1);
