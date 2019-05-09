@@ -82,10 +82,9 @@ int main(int argc, char **argv) {
     int incomingSocketfd = initIn();
 
 
-    std::cout << "about to try while(w != to ctrl d)\n";
+
     while (w != '\04'){
         char w = getchar();
-        std::cout << "w is " << w << std::endl;
         if (send(outgoingSocketfd , (char *)&w , 1 , sizeof(w) ) < 0){
             fprintf( stderr, "Write failed. %s\n", strerror(errno));
             exit(1);
