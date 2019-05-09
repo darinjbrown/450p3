@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "Z:/450/p3.1/client.cpp" "Z:/450/p3.1/cmake-build-debug/CMakeFiles/p3_1.dir/client.cpp.obj"
-  "Z:/450/p3.1/main.cpp" "Z:/450/p3.1/cmake-build-debug/CMakeFiles/p3_1.dir/main.cpp.obj"
-  "Z:/450/p3.1/server.cpp" "Z:/450/p3.1/cmake-build-debug/CMakeFiles/p3_1.dir/server.cpp.obj"
+  "C:/Users/Darin/CLionProjects/450p3/client.cpp" "C:/Users/Darin/CLionProjects/450p3/cmake-build-debug/CMakeFiles/p3_1.dir/client.cpp.obj"
+  "C:/Users/Darin/CLionProjects/450p3/main.cpp" "C:/Users/Darin/CLionProjects/450p3/cmake-build-debug/CMakeFiles/p3_1.dir/main.cpp.obj"
+  "C:/Users/Darin/CLionProjects/450p3/server.cpp" "C:/Users/Darin/CLionProjects/450p3/cmake-build-debug/CMakeFiles/p3_1.dir/server.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
