@@ -21,14 +21,13 @@ int y = SEND_START_Y;
 int receiveY = RECEIVE_START_Y;
 char send1[12][LINE_WIDTH];
 char receive1[12][LINE_WIDTH];
-std::string new1 = "newline (backslash n) read";
 void scrollOneLine();
 
 //format is (Y,X) instead of (X,Y)
 
 int main(void)
 {
-    char c;
+
     for(int i = 0; i < 12; i++){
         for(int j = 0; j < LINE_WIDTH; j++){
             send1[i][j] = '1';
@@ -45,24 +44,29 @@ int main(void)
      move(SEND_START_Y, sendX);
 
 
-     for(int i = 0; i < 200; i++){
+     while(c != '\04'){
          c = getchar();
-         mvaddch(0, 0, (int)c);
-         if (c == '\n' || c == '\r'){
-             move(0, 0);
-             addstr("Got a new line char.");
-             addch('!');
-             scrollOneLine();
-         }else {
-             mvaddch(y, sendX, c);
-             send1[y][sendX] = c;
-             sendX++;
-             move(y, sendX);
+         if(c == '\04'){
+             terminate();
          }
+         else {
+             mvaddch(0, 0, (int) c);
+             if (c == '\n' || c == '\r') {
+                 move(0, 0);
+                 addstr("Got a new line char.");
+                 addch('!');
+                 scrollOneLine();
+             } else {
+                 mvaddch(y, sendX, c);
+                 send1[y][sendX] = c;
+                 sendX++;
+                 move(y, sendX);
+             }
 
-         refresh();
-         if(sendX >= LINE_WIDTH) {
-             scrollOneLine();
+             refresh();
+             if (sendX >= LINE_WIDTH) {
+                 scrollOneLine();
+             }
          }
      }
 

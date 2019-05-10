@@ -1,7 +1,11 @@
 //
 //
 //
+
+#include<curses.h>
+#include "getChar.hpp"
 #include <iostream>
+#include <ostream>
 #include <cstdlib>
 
 #include<sys/types.h>
@@ -16,13 +20,17 @@
 #include<errno.h>
 #include<string.h>
 
-#include<curses.h>
-#include "getChar.hpp"
+#include <thread>
+#include <pthread.h>
 
 #define PORT_NUMBER 8016
 #define PORT_NUMBER2 8017
 #define MAXLINE 80
 #define LISTENQ 5
+#define LINE_WIDTH 80
+#define RECEIVE_START_Y 14
+#define DIVIDER_Y 13
+#define SEND_START_Y 12
 // The client, as an argument, takes the IP of a server and attempts
 
 // to connect to it.
@@ -38,6 +46,19 @@
 // If the server is running on the local machine, you can do:
 
 // ./client.x 127.0.0.1
+
+void startup( void );
+void terminate( void );
+
+char dividerChar = '_';
+char d;
+int receiveX = 0;
+int sendX = 0;
+int y = SEND_START_Y;
+int receiveY = RECEIVE_START_Y;
+char send1[12][LINE_WIDTH];
+char receive1[12][LINE_WIDTH];
+void scrollOneLine();
 int initOut();
 int initIn();
 void typeAndWrite(int outgoingSocketfd);
@@ -49,6 +70,7 @@ struct sockaddr_in servaddr, cliaddr, servaddr2;
 socklen_t len;
 char buff[MAXLINE];
 char c, w, r;
+void writeThreadFunction(int socketFD); // this thread will write to curses and the connection to server through passed file descriptor
 
 int main(int argc, char **argv) {
 
@@ -81,32 +103,74 @@ int main(int argc, char **argv) {
     int outgoingSocketfd = initOut();
     int incomingSocketfd = initIn();
 
+    std::thread write_thread(writeThreadFunction, outgoingSocketfd);
+
+    write_thread.join();
+
+    close(outgoingSocketfd);
+
+  }
 
 
-    while (w != '\04'){
-        char w = getchar();
-        if (send(outgoingSocketfd , (char *)&w , 1 , sizeof(w) ) < 0){
-            fprintf( stderr, "Write failed. %s\n", strerror(errno));
-            exit(1);
+
+    //initiate curses and write to both the socket and curses
+void writeThreadFunction(int outgoingSocketfd){
+    for(int i = 0; i < 12; i++){
+        for(int j = 0; j <= LINE_WIDTH; j++){
+            send1[i][j] = ' ';
         }
     }
+    startup();
+    move(DIVIDER_Y, 0);  // move the cursor to sender's start
+    for (int i = 0; i < LINE_WIDTH; i++){
+        addch(dividerChar);
+        refresh();
+    }
 
-        // talk to the server. (Application-level protocol)
-        while ((n = read(sockfd, recvline, MAXLINE)) > 0) {
-            recvline[n] = 0;    /* null terminate */
-            if (fputs(recvline, stdout) == EOF) {
-                fprintf(stderr, "fputs error: %s", strerror(errno));
-                exit(5);
+    refresh();
+    move(SEND_START_Y, sendX);
+
+
+    while(c != '\x04'){
+        c = getchar();
+        if(c == '\x04'){
+            terminate();
+        }
+        else {
+            if (c == '\x04' || c == '\x1a'){
+                terminate();
+                close(sockfd);
+                exit(0);
+            }
+            //std::cout << "about to send char\n"; // for debugging
+            if (send(outgoingSocketfd , (char *)&c, sizeof(c), 0 ) < 0){
+                fprintf( stderr, "Write failed. %s\n", strerror(errno));
+                exit(1);
+            }
+
+            if (c == '\n' || c == '\r') {
+                move(0, 0);
+                addstr("Got a new line char.");
+                addch('!');
+                scrollOneLine();
+            } else {
+                mvaddch(y, sendX, c);
+                send1[y][sendX] = c;
+                sendX++;
+                move(y, sendX);
+            }
+
+            refresh();
+            if (sendX >= LINE_WIDTH) {
+                scrollOneLine();
             }
         }
-        if (n < 0) {
-            fprintf(stderr, "read error: %s", strerror(errno));
-            exit(6);
-        }
-        if (c == '~')close(sockfd);
-        exit(0);
     }
 
+    sleep(1);
+    terminate();
+    close(outgoingSocketfd);
+}
 
 int initOut(){
 // Create a socket end-point for communication.  We use the
@@ -174,4 +238,40 @@ int initIn(){
     }
 
         //***************************************************************
+}
+void startup( void )
+{
+    initscr();	    /* activate curses                                            */
+    curs_set(0);   /* prevent the cursor to be displayed                         */
+    clear();	    /* clear the screen that curses provides                      */
+    noecho();	    /* prevent the input chars to be echoed to the screen         */
+    cbreak();	    /* change the stty so that characters are delivered to the
+		       program as they are typed--no need to hit the return key!  */
+}
+
+void terminate( void )
+{
+    mvcur( 0, COLS - 1, LINES - 1, 0 );
+    clear();
+    refresh();
+    endwin();
+}
+
+void scrollOneLine(){
+    for (int i = 1; i <= SEND_START_Y; i++){
+        for(int j = 0; j <= LINE_WIDTH; j++){
+            if (send1[i-1][j] != '~'){
+                send1[i-1][j] = send1[i][j];
+                mvaddch(i-1, j, send1[i-1][j]);
+                refresh();
+            }
+        }
+    }
+    char e = ' ';
+    for(int i = 0; i <= LINE_WIDTH; i++){
+        send1[12][i] = e;
+        mvaddch(12, i, e);
+        refresh();
+    }
+    sendX = 0;
 }
