@@ -1,0 +1,30 @@
+I could not get makefile working properly.
+
+Step 1:  compile server by executing:  g++ -std=c++17 server.cpp -o server.x -lcurses -ltermcap -lpthread
+
+Step 2:  compile client by exectuting:  g++ -std=c++17 client.cpp -o client.x -lcurses -ltermcap -lpthread
+
+Step 3:  Start server:  In one terminal type:  ./server.x   (this MUST be done before step 4)
+
+Step 4:  Start client:  In a second terminal type:  ./client.x 127.0.0.1 
+
+Step 5:  There should be a delay of several seconds while the programs connect via 2 sockets.  
+      This is intentional to give 1st connection time to be established before attempting 2nd. Be patient!
+
+Try typing in each terminal to see how input is displayed on the sender's screen and output on the receiver's.
+
+*To end programs use ctrl d (or ctrl z on windows -- it is not clear through windows powershell testing if this functions as intended.
+
+Backspace adjustment is implemented by checking for '\b' and decrementing the x axis counter and getting next char (instead of writing and incrementing counter)
+Known issues:  
+  server write thread is not functioning properly.  When attempting to write the program will fail leaving you in a terminal with curses 
+    still running.  Please do initial testing by writing in client and observing in server.  If you have both terminals visible during 
+    connection phases, you will see that the sockets are connecting, but there is something I was unable to solve in the reversing the
+    write function in the 2nd program (server).
+  Sender/Writer scrolling function works properly, but the receiver / reader scrolling function does not work.  Receiver window will 
+    populate properly until it is filled.  It then appears to enter an infinite loop displaying characters in the write half of the screen
+ 
+ 
+ *It is unclear to me whether this functions properly do to the way windows reads EOT / EOF tokens.  I implemented a workaround:  
+    TYPE '~' TO EXIT DEFINITELY WORKS
+  
